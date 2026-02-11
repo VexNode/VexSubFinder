@@ -1,11 +1,26 @@
 import requests
 
+# Terminal ranglari
+GREEN = '\033[92m'
+CYAN = '\033[96m'
+RED = '\033[91m'
+ENDC = '\033[0m'
+
+BANNER = f"""{CYAN}
+__     __          _   _           _      
+\ \   / /         | \ | |         | |     
+ \ \_/ /__ _  _   |  \| | ___   __| | ___ 
+  \   // _ \ \/ / | . ` |/ _ \ / _` |/ _ \
+   | ||  __/>  <  | |\  | (_) | (_| |  __/
+   |_| \___/_/\_\ |_| \_|\___/ \__,_|\___|
+                                          
+    {GREEN}>>> VexNode Subdomain Finder v2.0 <<<{CYAN}
+    {GREEN}>>> Created by: VexNode           <<<{ENDC}
+"""
+
 def find_subdomains():
-    print("-" * 40)
-    print("   VEX-SUBFINDER v2.0 | Professional   ")
-    print("-" * 40)
-    
-    domain = input("Target Domain (masalan: google.com): ")
+    print(BANNER)
+    domain = input(f"{GREEN}Target Domain (masalan: google.com): {ENDC}")
     
     # Kiber-razvedka uchun eng mashhur subdomenlar lug'ati
     sub_list = [
@@ -21,24 +36,22 @@ def find_subdomains():
     ]
     # Siz bunga yana yuzlab so'zlarni qo'shishingiz mumkin
 
-    print(f"[*] {len(sub_list)} ta subdomen tekshirilmoqda...")
+    print(f"\n[*] {len(sub_list)} ta subdomen tekshirilmoqda...\n")
 
     for sub in sub_list:
         url = f"http://{sub}.{domain}"
         try:
-            # timeout=2 skaner tezroq ishlashi uchun
             response = requests.get(url, timeout=2)
             if response.status_code == 200:
-                print(f"[+] Found Active: {url} (Status: 200)")
+                print(f"{GREEN}[+] Found Active: {url} (Status: 200){ENDC}")
             elif response.status_code == 403:
-                print(f"[!] Found Forbidden: {url} (Status: 403 - Admin panel bo'lishi mumkin)")
+                print(f"{RED}[!] Found Forbidden: {url} (Status: 403){ENDC}")
         except requests.ConnectionError:
             pass
-        except Exception as e:
+        except:
             continue
 
-    print("-" * 40)
-    print("Scan complete. VexNode out.")
+    print(f"\n{CYAN}--- Scan complete. VexNode out. ---{ENDC}")
 
 if __name__ == "__main__":
     find_subdomains()
