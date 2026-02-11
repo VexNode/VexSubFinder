@@ -1,4 +1,4 @@
-    import requests
+import requests
 
 # Terminal ranglari
 GREEN = '\033[92m'
@@ -21,21 +21,15 @@ BANNER = r"""
 
 def find_subdomains():
     print(CYAN + BANNER + ENDC)
-    domain = input(f"{GREEN}Target Domain (masalan: google.com): {ENDC}")
+    domain = input(f"{GREEN}Target Domain: {ENDC}")
     
-   # Kiber-razvedka uchun eng mashhur subdomenlar lug'ati
-    sub_list = [
-        "www", "mail", "ftp", "localhost", "webmail", "smtp", "pop", "ns1", "ns2",
-        "admin", "dev", "test", "api", "staging", "m", "blog", "shop", "support",
-        "vpn", "secure", "proxy", "portal", "cloud", "dns", "gateway", "remote",
-        "apps", "status", "git", "gitlab", "devops", "cpanel", "whm", "jenkins",
-        "jira", "confluence", "internal", "hr", "payroll", "docs", "static",
-        "assets", "cdn", "media", "images", "videos", "uploads", "files", "beta",
-        "alpha", "demo", "client", "customer", "partner", "manage", "billing",
-        "payment", "auth", "login", "register", "signup", "search", "tools",
-        "vps", "server", "db", "database", "sql", "monitor", "nagios", "zabbix"
-    ]
-    # Siz bunga yana yuzlab so'zlarni qo'shishingiz mumkin
+    # subdomains.txt faylini o'qib olish
+    try:
+        with open("subdomains.txt", "r") as f:
+            sub_list = [line.strip() for line in f]
+    except FileNotFoundError:
+        print(f"{RED}[!] subdomains.txt topilmadi!{ENDC}")
+        return
 
     print(f"\n[*] {len(sub_list)} ta subdomen tekshirilmoqda...\n")
 
