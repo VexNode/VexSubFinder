@@ -1,4 +1,4 @@
-import requests
+    import requests
 
 # Terminal ranglari
 GREEN = '\033[92m'
@@ -6,23 +6,24 @@ CYAN = '\033[96m'
 RED = '\033[91m'
 ENDC = '\033[0m'
 
-BANNER = f"""{CYAN}
-__     __          _   _           _      
-\ \   / /         | \ | |         | |     
- \ \_/ /__ _  _   |  \| | ___   __| | ___ 
-  \   // _ \ \/ / | . ` |/ _ \ / _` |/ _ \
-   | ||  __/>  <  | |\  | (_) | (_| |  __/
-   |_| \___/_/\_\ |_| \_|\___/ \__,_|\___|
-                                          
-    {GREEN}>>> VexNode Subdomain Finder v2.0 <<<{CYAN}
-    {GREEN}>>> Created by: VexNode           <<<{ENDC}
+# r""" bu belgilarni Python xato deb o'ylamasligi uchun shart
+BANNER = r"""
+ __      __             _   _           _      
+ \ \    / /            | \ | |         | |     
+  \ \  / /  ___ __  __ |  \| |  ___   _| |  ___ 
+   \ \/ /  / _ \\ \/ / | . ` | / _ \ / _` | / _ \
+    \  /  |  __/ >  <  | |\  || (_) | (_| ||  __/
+     \/    \___|/_/\_\ |_| \_| \___/ \__,_| \___|
+
+      >>> VexNode Subdomain Finder v2.0 <<<
+      >>> Created by: VexNode           <<<
 """
 
 def find_subdomains():
-    print(BANNER)
+    print(CYAN + BANNER + ENDC)
     domain = input(f"{GREEN}Target Domain (masalan: google.com): {ENDC}")
     
-    # Kiber-razvedka uchun eng mashhur subdomenlar lug'ati
+   # Kiber-razvedka uchun eng mashhur subdomenlar lug'ati
     sub_list = [
         "www", "mail", "ftp", "localhost", "webmail", "smtp", "pop", "ns1", "ns2",
         "admin", "dev", "test", "api", "staging", "m", "blog", "shop", "support",
@@ -43,11 +44,7 @@ def find_subdomains():
         try:
             response = requests.get(url, timeout=2)
             if response.status_code == 200:
-                print(f"{GREEN}[+] Found Active: {url} (Status: 200){ENDC}")
-            elif response.status_code == 403:
-                print(f"{RED}[!] Found Forbidden: {url} (Status: 403){ENDC}")
-        except requests.ConnectionError:
-            pass
+                print(f"{GREEN}[+] Found: {url}{ENDC}")
         except:
             continue
 
